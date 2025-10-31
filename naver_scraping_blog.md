@@ -6,7 +6,7 @@ Naver isn't just another search engine—it's the digital heartbeat of South Kor
 
 But here's the reality: Naver fights back hard. The platform deploys sophisticated anti-bot protection systems, serves dynamically rendered content through JavaScript, and presents complex URL structures that trip up inexperienced scrapers. Add Korean text encoding challenges to the mix, and you've got a scraping challenge that demands a strategic approach.
 
-**[INSERT SCREENSHOT: Naver.com homepage showing search interface with Korean UI]**
+**[SCREENSHOT: Naver.com homepage showing search interface with Korean UI]**
 
 In this comprehensive guide, you'll master how to scrape Naver's organic search results, paid advertisements, image search data, and product listings—all without getting blocked. We'll use Python with proven libraries and techniques that actually work in 2025, when Naver's detection systems are more sophisticated than ever.
 
@@ -111,7 +111,7 @@ import random
 
 If you're using Syphoon.com's Naver scraping API or similar services, you'll need an API key. For direct scraping, you don't need credentials—but anti-blocking services like Syphoon will dramatically improve success rates.
 
-**[INSERT SCREENSHOT: API key dashboard from Syphoon.com showing token generation]**
+**[SCREENSHOT: API key dashboard from Syphoon.com showing token generation]**
 
 ---
 
@@ -199,17 +199,17 @@ def fetch_naver_search_page(query, page=1):
             response.encoding = response.apparent_encoding or 'utf-8'
             return response.text
         elif response.status_code == 429:
-            print("⚠️ Rate limited by Naver. Wait before retrying.")
+            print("Rate limited by Naver. Wait before retrying.")
             return None
         elif response.status_code in [403, 404]:
-            print(f"❌ Access denied or page not found (status {response.status_code})")
+            print(f"Access denied or page not found (status {response.status_code})")
             return None
             
     except requests.Timeout:
-        print("❌ Request timed out")
+        print("Request timed out")
         return None
     except requests.RequestException as e:
-        print(f"❌ Request failed: {e}")
+        print(f"Request failed: {e}")
         return None
     
     return None
@@ -316,7 +316,7 @@ Let's put it all together and scrape a single search query:
 # Example: Search for "파이썬 프로그래밍" (Python programming)
 query = "파이썬 프로그래밍"
 
-print(f"🔍 Searching for: {query}")
+print(f"Searching for: {query}")
 
 # Fetch the page
 html = fetch_naver_search_page(query, page=1)
@@ -326,7 +326,7 @@ if html:
     results = parse_naver_search_results(html)
     
     # Display results
-    print(f"\n✅ Found {len(results)} results:\n")
+    print(f"\nFound {len(results)} results:\n")
     
     for i, result in enumerate(results, 1):
         print(f"{i}. {result['title']}")
@@ -334,14 +334,14 @@ if html:
         print(f"   Description: {result['description'][:100]}...")
         print()
 else:
-    print("❌ Failed to fetch search results")
+    print("Failed to fetch search results")
 ```
 
 **Output example:**
 ```
-🔍 Searching for: 파이썬 프로그래밍
+Searching for: 파이썬 프로그래밍
 
-✅ Found 15 results:
+Found 15 results:
 
 1. Python 프로그래밍 기초 | 패스트캠퍼스
    URL: https://fastcampus.co.kr/courses/python
@@ -367,7 +367,7 @@ def export_results_to_csv(results, filename="naver_results.csv"):
     """
     
     if not results:
-        print("❌ No results to export")
+        print("No results to export")
         return
     
     try:
@@ -377,10 +377,10 @@ def export_results_to_csv(results, filename="naver_results.csv"):
             writer.writeheader()
             writer.writerows(results)
         
-        print(f"✅ Exported {len(results)} results to {filename}")
+        print(f"Exported {len(results)} results to {filename}")
         
     except Exception as e:
-        print(f"❌ Error exporting to CSV: {e}")
+        print(f"Error exporting to CSV: {e}")
 
 # Usage:
 results = parse_naver_search_results(html)
@@ -425,18 +425,18 @@ def scrape_naver_all_pages(query, max_pages=10, delay_between_requests=2):
     all_results = []
     failed_pages = []
     
-    print(f"🔍 Starting multi-page scrape for: {query}")
-    print(f"📄 Max pages: {max_pages}\n")
+    print(f"Starting multi-page scrape for: {query}")
+    print(f"Max pages: {max_pages}\n")
     
     for page_num in range(1, max_pages + 1):
         try:
-            print(f"📄 Scraping page {page_num}...", end=" ", flush=True)
+            print(f"Scraping page {page_num}...", end=" ", flush=True)
             
             # Fetch the page
             html = fetch_naver_search_page(query, page=page_num)
             
             if not html:
-                print("❌ Failed")
+                print("Failed")
                 failed_pages.append(page_num)
                 continue
             
@@ -444,11 +444,11 @@ def scrape_naver_all_pages(query, max_pages=10, delay_between_requests=2):
             page_results = parse_naver_search_results(html)
             
             if not page_results:
-                print("⚠️ No results found (end of results)")
+                print("No results found (end of results)")
                 break
             
             all_results.extend(page_results)
-            print(f"✅ {len(page_results)} results")
+            print(f"{len(page_results)} results")
             
             # Respectful delay between requests
             if page_num < max_pages:
@@ -457,7 +457,7 @@ def scrape_naver_all_pages(query, max_pages=10, delay_between_requests=2):
                 time.sleep(delay)
         
         except Exception as e:
-            print(f"❌ Error: {e}")
+            print(f"Error: {e}")
             failed_pages.append(page_num)
             time.sleep(5)  # Longer delay on error
             continue
@@ -467,7 +467,7 @@ def scrape_naver_all_pages(query, max_pages=10, delay_between_requests=2):
     print(f"📄 Pages scraped: {max_pages - len(failed_pages)}/{max_pages}")
     
     if failed_pages:
-        print(f"⚠️ Failed pages: {failed_pages}")
+        print(f"Failed pages: {failed_pages}")
     
     return all_results
 
@@ -549,7 +549,7 @@ ads = scrape_naver_ads(query)
 print(f"Found {len(ads)} ads")
 ```
 
-**[INSERT SCREENSHOT: Comparison of organic results vs paid ads in Naver search results page]**
+**[SCREENSHOT: Comparison of organic results vs paid ads in Naver search results page]**
 
 ---
 
@@ -616,7 +616,7 @@ def export_korean_results(results, filename="results.csv"):
         writer.writeheader()
         writer.writerows(results)
     
-    print(f"✅ Exported to {filename} (opens correctly in Excel)")
+    print(f"Exported to {filename} (opens correctly in Excel)")
 ```
 
 The `utf-8-sig` encoding adds a BOM (Byte Order Mark) that tells Excel the file contains Unicode text, ensuring Korean characters display correctly.
@@ -707,7 +707,7 @@ For large-scale production scraping, consider using Syphoon.com's managed scrapi
 - **Rate limiting** — Respects Naver's infrastructure
 - **Reliability guarantees** — Built-in retry logic
 
-**[INSERT SCREENSHOT: Syphoon.com dashboard showing API success rates and rate limits]**
+**[SCREENSHOT: Syphoon's dashboard showing API success rates and rate limits]**
 
 ---
 
@@ -770,7 +770,7 @@ def safe_scrape(query, max_retries=3):
         try:
             html = fetch_naver_search_page(query)
             results = parse_naver_search_results(html)
-            logging.info(f"✅ Successfully scraped {len(results)} results for '{query}'")
+            logging.info(f"Successfully scraped {len(results)} results for '{query}'")
             return results
         
         except requests.Timeout:
@@ -781,7 +781,7 @@ def safe_scrape(query, max_retries=3):
             logging.error(f"Error on attempt {attempt + 1}: {e}")
             time.sleep(2 ** attempt)
     
-    logging.error(f"❌ Failed to scrape '{query}' after {max_retries} attempts")
+    logging.error(f"Failed to scrape '{query}' after {max_retries} attempts")
     return []
 ```
 
@@ -811,13 +811,13 @@ class ScraperMetrics:
         elapsed = (datetime.now() - self.start_time).total_seconds()
         success_rate = (self.successful_queries / self.total_queries * 100) if self.total_queries > 0 else 0
         
-        print(f"\n📊 Scraper Report:")
-        print(f"  ⏱️ Time elapsed: {elapsed:.1f} seconds")
-        print(f"  📄 Queries: {self.total_queries}")
-        print(f"  ✅ Successful: {self.successful_queries} ({success_rate:.1f}%)")
-        print(f"  ❌ Failed: {self.failed_queries}")
-        print(f"  📊 Total results: {self.total_results}")
-        print(f"  ⚡ Average results per query: {self.total_results / self.successful_queries if self.successful_queries > 0 else 0:.1f}")
+        print(f"\nScraper Report:")
+        print(f"  Time elapsed: {elapsed:.1f} seconds")
+        print(f"  Queries: {self.total_queries}")
+        print(f"  Successful: {self.successful_queries} ({success_rate:.1f}%)")
+        print(f"  Failed: {self.failed_queries}")
+        print(f"  Total results: {self.total_results}")
+        print(f"  Average results per query: {self.total_results / self.successful_queries if self.successful_queries > 0 else 0:.1f}")
 ```
 
 ---
@@ -897,12 +897,12 @@ Use **Syphoon.com's Naver Scraping API**:
 
 This guide demonstrates web scraping techniques for educational purposes. Always:
 
-- ✅ Review Naver's Terms of Service before scraping
-- ✅ Scrape only publicly available data
-- ✅ Respect robots.txt and rate limits
-- ✅ Use scraped data responsibly
-- ✅ Consider reaching out to Naver for official API access for commercial use
-- ✅ Store personal data (PII) responsibly and comply with local regulations
+- Review Naver's Terms of Service before scraping
+- Scrape only publicly available data
+- Respect robots.txt and rate limits
+- Use scraped data responsibly
+- Consider reaching out to Naver for official API access for commercial use
+- Store personal data (PII) responsibly and comply with local regulations
 
 Scraping data without permission from private content or circumventing security measures violates terms of service. Use this knowledge responsibly.
 
@@ -914,18 +914,18 @@ You now have everything you need to scrape Naver effectively and at scale. Start
 
 ### Quick Reference Checklist
 
-- ✅ Set up Python environment with `requests` and `BeautifulSoup`
-- ✅ Understand Naver's URL structure (especially pagination)
-- ✅ Parse JavaScript-embedded JSON (2025 approach)
-- ✅ Implement Korean text cleaning
-- ✅ Export to CSV with proper encoding
-- ✅ Add delays and error handling
-- ✅ Monitor and log your scraping activity
-- ✅ Scale responsibly
+- Set up Python environment with `requests` and `BeautifulSoup`
+- Understand Naver's URL structure (especially pagination)
+- Parse JavaScript-embedded JSON (2025 approach)
+- Implement Korean text cleaning
+- Export to CSV with proper encoding
+- Add delays and error handling
+- Monitor and log your scraping activity
+- Scale responsibly
 
 Questions? Common issues are covered in the troubleshooting section above. For large-scale production work, consider Syphoon's managed service for reliability and compliance.
 
-**Happy scraping! 🚀**
+**Happy scraping!**
 
 ---
 

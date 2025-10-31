@@ -35,13 +35,13 @@ By the end of this guide, you'll be able to:
 
 ## Understanding Naver's Architecture
 
-Before you start with the code, you need to understand how Naver organizes its content. Unlike Google's minimalist structure, Naver is a complex ecosystem with multiple specialized sections.
+Before you start coding, you need to understand how Naver organizes its content. Unlike Google's minimalist structure, Naver is a complex ecosystem with multiple specialized sections.
 
 ### Naver's Main Sections
 
 **Search Results (Web Search)**: The core organic search functionality at `search.naver.com` returns web pages, images, videos, and specialized content blocks. Naver heavily features its own content ecosystem, meaning you'll often see Naver Blog, Naver News, and Naver Cafe results mixed with traditional web results.
 
-**Paid Advertisements**: Sponsored listings served from `ad.search.naver.com` with different DOM structures and wrapped in redirect URLs or promotional blocks requiring careful extraction.
+**Paid Advertisements**: Sponsored listings served from `ad.search.naver.com` with varying DOM structures and wrapped in redirect URLs or promotional blocks requiring careful extraction.
 
 **News Aggregation**: The news section at `news.naver.com` aggregates real-time articles from hundreds of Korean news sources with categorization by topic.
 
@@ -68,7 +68,7 @@ Breaking it down:
 - `page=1` — Which page of results (deprecated but sometimes used)
 - `start=1` — The index of the first result (pagination formula: each page increments by 15)
 
-**Important**: As of September 2025, Naver has updated their search infrastructure to use JavaScript-rendered content. The results are embedded in JavaScript data structures within `<script>` tags rather than traditional HTML elements. This is a recent change that many older tutorials miss.
+**Important**: As of September 2025, Naver has updated its search infrastructure to use JavaScript-rendered content. The results are embedded in JavaScript data structures within `<script>` tags rather than traditional HTML elements. This is a recent change that many older tutorials miss.
 
 ---
 
@@ -462,9 +462,9 @@ def scrape_naver_all_pages(query, max_pages=10, delay_between_requests=2):
             time.sleep(5)  # Longer delay on error
             continue
     
-    print(f"\n📊 Summary:")
-    print(f"✅ Total results: {len(all_results)}")
-    print(f"📄 Pages scraped: {max_pages - len(failed_pages)}/{max_pages}")
+    print(f"\nSummary:")
+    print(f"Total results: {len(all_results)}")
+    print(f"Pages scraped: {max_pages - len(failed_pages)}/{max_pages}")
     
     if failed_pages:
         print(f"Failed pages: {failed_pages}")
@@ -481,7 +481,7 @@ export_results_to_csv(all_results, "gaming_headsets_full.csv")
 
 ## Advanced: Scraping Naver Paid Advertisements
 
-Beyond organic results, Naver's paid ads are valuable for understanding advertiser strategies and competitive landscape. Ads are served from `ad.search.naver.com` with different DOM structures.
+Beyond organic results, Naver's paid ads are valuable for understanding advertiser strategies and the competitive landscape. Ads are served from `ad.search.naver.com` with different DOM structures.
 
 ### Fetching Ads
 
@@ -835,7 +835,7 @@ class ScraperMetrics:
 
 ### Issue 2: Empty Results or Parsing Failures
 
-**Cause**: HTML structure changed or JavaScript rendering not working
+**Cause**: HTML structure changed or JavaScript rendering is not working
 **Solutions**:
 - Check if Naver's DOM structure has changed (common)
 - Verify your CSS selectors with browser DevTools
@@ -849,13 +849,13 @@ class ScraperMetrics:
 - Use `utf-8-sig` when opening/writing files
 - Set `response.encoding = 'utf-8'` explicitly
 - Avoid mixing Python 2 and Python 3 code
-- Test with: `print("한글 테스트")` to verify terminal supports Korean
+- Test with: `print("한글 테스트")` to verify the terminal supports Korean
 
 ### Issue 4: Pagination Stops at Page 2-3
 
 **Cause**: Getting blocked after multiple requests
 **Solutions**:
-- Increase delay between requests
+- Increase the delay between requests
 - Implement exponential backoff
 - Rotate IP addresses
 - Use Syphoon's managed proxy service
@@ -938,10 +938,10 @@ A: Scraping publicly available data is legal, but you must comply with Naver's T
 A: This depends on your implementation and Naver's limits. Recommended: 100-1,000 queries per day for stable scraping. Faster rates require managed proxies and careful rate limiting.
 
 **Q: Does my code work in 2025?**
-A: Yes! This guide reflects Naver's current (September 2025) structure with JavaScript-rendered content. Naver frequently updates their DOM structure, so monitor the parsing code if results stop working.
+A: Yes! This guide reflects Naver's current (September 2025) structure with JavaScript-rendered content. Naver frequently updates its DOM structure, so monitor the parsing code if results stop working.
 
 **Q: Can I scrape product data from Naver Smartstore?**
-A: Yes, but it requires different parsing logic. The product page structure differs from search results. Syphoon provides dedicated product scrapers.
+A: Yes, but it requires different parsing logic. The product page structure differs from the search results. Syphoon provides dedicated product scrapers.
 
 **Q: What's the difference between scraping vs using an API?**
 A: Scraping extracts data from web pages programmatically. APIs provide structured data access. Naver doesn't offer a public search results API, making scraping the only option. Syphoon bridges this gap with a managed API layer.

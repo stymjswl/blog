@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Naver isn't just another search engine—it's the digital heartbeat of South Korea. Processing over 74% of all search queries in the country, Naver dominates the Korean web landscape with a market share that would make most competitors jealous. If you're looking to extract Korean market intelligence, track SEO performance, monitor competitor data, or analyze consumer trends, scraping Naver's search results is often your first essential step.
+Naver sits at the center of South Korea’s digital life. With over 60% of all search queries in the country, Naver shapes how people find information, products, and services across the web. For anyone looking to understand the Korean market — whether it’s tracking SEO performance, monitoring competitors, or studying consumer trends — scraping Naver’s search results is often the first step.
 
-But here's the reality: Naver fights back hard. The platform deploys sophisticated anti-bot protection systems, serves dynamically rendered content through JavaScript, and presents complex URL structures that trip up inexperienced scrapers. Add Korean text encoding challenges to the mix, and you've got a scraping challenge that demands a strategic approach.
+But it’s not an easy one. Naver uses strict anti-bot protections, serves much of its content through JavaScript, and relies on complex URL structures that can confuse basic scrapers. On top of that, handling Korean text encoding adds another layer of difficulty. Collecting reliable data from Naver requires planning, precision, and a method that respects how the platform works.
 
 **[SCREENSHOT: Naver.com homepage showing search interface with Korean UI]**
 
@@ -35,7 +35,7 @@ By the end of this guide, you'll be able to:
 
 ## Understanding Naver's Architecture
 
-Before you write a single line of code, you need to understand how Naver organizes its content. Unlike Google's minimalist structure, Naver is a complex ecosystem with multiple specialized sections.
+Before you start with the code, you need to understand how Naver organizes its content. Unlike Google's minimalist structure, Naver is a complex ecosystem with multiple specialized sections.
 
 ### Naver's Main Sections
 
